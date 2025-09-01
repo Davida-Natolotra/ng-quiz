@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Question } from '../../services/question';
 import { Router } from '@angular/router';
 import { CommonModule, NgIf, NgForOf } from '@angular/common';
+import { Myrec } from '../../services/myrec';
 
 @Component({
   selector: 'app-quiz',
@@ -19,7 +20,7 @@ export class Quiz implements OnInit, OnDestroy {
   timer: number = 15; // Time in seconds for each question
   interval: any; // Reference to the timer interval
 
-  constructor(private router: Router, private questionService: Question) {}
+  constructor(private router: Router, private questionService: Question, private myrecs: Myrec) {}
 
   ngOnInit(): void {
     // Fetching the questions from the service
@@ -63,6 +64,18 @@ export class Quiz implements OnInit, OnDestroy {
       this.score++;
     }
     console.log('Current Score: ', this.score);
+
+    this.myrecs.myrecs.update((myrecs) => [
+      ...myrecs,
+      {
+        question: this.questions[this.currentQuestionIndex]?.question,
+        answer: this.selectedOption,
+        score: this.score,
+        options: this.questions[this.currentQuestionIndex]?.options,
+      },
+    ]);
+
+    console.log('myrecs =  ', this.myrecs.myrecs());
 
     this.selectedOption = ''; // Reset selected option for next question
     this.currentQuestionIndex++; // Move to next question
