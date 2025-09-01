@@ -1,1 +1,13 @@
-<p>recap works!</p>
+<h1>Recapitulation</h1>
+@for(myrec of myrecs; track $index) {
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>{{ myrec.question }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-card-subtitle> {{ myrec.answer }}</mat-card-subtitle>
+  </mat-card-content>
+</mat-card>
+}
+<hr />
+<button mat-flat-button routerLink="/">Restart Quiz</button>
