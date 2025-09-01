@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink, Router } from '@angular/router';
 import { CommonModule, NgIf } from '@angular/common';
+import { Myrec } from '../../services/myrec';
 
 @Component({
   selector: 'app-results',
@@ -12,7 +13,11 @@ export class Results implements OnInit {
   score: number = 0;
   totalQuestions: number = 0;
 
-  constructor(private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private MyRecs: Myrec
+  ) {}
   ngOnInit(): void {
     // Accessing query parameters for state
     this.activatedRoute.queryParams.subscribe((params) => {
@@ -22,8 +27,8 @@ export class Results implements OnInit {
     });
   }
 
-  restartQuiz(): void {
-    // Navigate to the quiz start page using routerLink in the HTML
-    console.log('Restart Quiz');
+  restartQuiz() {
+    this.MyRecs.myrecs.set([]);
+    this.router.navigate(['']);
   }
 }
