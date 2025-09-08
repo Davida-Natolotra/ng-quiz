@@ -1,0 +1,226 @@
+[
+  {
+    "id": "spt1",
+    "ou_level": "2",
+    "department": "ME",
+    "health_area": "PALU",
+    "sections": [
+      {
+        "id": "s01",
+        "title": "Ressources humaines",
+        "maxScore": 20,
+        "type": "standard",
+        "questions": [
+          {
+            "id": "s01_q1",
+            "subject": "La Region dispose-t-elle :",
+            "level": 0,
+            "score": 0
+          },
+          {
+            "id": "s01_q2",
+            "subject": "Responsable base de données formée en DHIS2 dans les 2 dernières années  : (à préciser dans l’observation le nombre de formation reçue)",
+            "level": 1,
+            "score": 0,
+            "parentId": "s01_q1"
+          },
+          {
+            "id": "s01_q3",
+            "subject": "Comité de validation de données exisitant",
+            "level": 1,
+            "score": 0,
+            "parentId": "s01_q1"
+          },
+          {
+            "id": "s01_q4",
+            "subject": "Comité de validation de données fonctionnel",
+            "level": 1,
+            "score": 0,
+            "parentId": "s01_q1"
+          },
+          {
+            "id": "s01_q5",
+            "subject": "La Région dispose-t-elle d’une personne ou entité en charge de",
+            "level": 0,
+            "score": 0
+          },
+          {
+            "id": "s01_q6",
+            "subject": "Le contrôle de la qualité des données",
+            "level": 1,
+            "score": 0,
+            "parentId": "s01_q5"
+          },
+          {
+            "id": "s01_q7",
+            "subject": "L’analyse des données (graphiques et tableaux)",
+            "level": 1,
+            "score": 0,
+            "parentId": "s01_q5"
+          }
+        ]
+      },
+      {
+        "id": "section2",
+        "title": "Disponibilité des documents de référence",
+        "maxScore": 20,
+        "type": "standard",
+        "questions": [
+          {
+            "id": "s02_q1",
+            "subject": "La Région dispose-t-elle de:",
+            "level": 0,
+            "maxScore": 100
+          },
+          {
+            "id": "s02_q2",
+            "subject": "Les deux (2) plus récents Rapports de supervision ",
+            "level": 1,
+            "score": 0,
+            "parentId": "s02_q1"
+          },
+          {
+            "id": "s02_q3",
+            "subject": "Plan Stratégique pour le Renforcement du Système d'Information Sanitaire 2023-2027 (PSRSIS)",
+            "level": 1,
+            "score": 0,
+            "parentId": "s02_q1"
+          },
+          {
+            "id": "s02_q4",
+            "subject": "Manuel des Normes et Procédures en matière de SIS",
+            "level": 1,
+            "score": 0,
+            "parentId": "s02_q1"
+          },
+          {
+            "id": "s02_q5",
+            "subject": "Guide d'utilisation de DHIS2",
+            "level": 1,
+            "score": 0,
+            "parentId": "s02_q1"
+          },
+          {
+            "id": "s02_q6",
+            "subject": "GGuide de remplissage des RMA CSB /Communautaire",
+            "level": 1,
+            "score": 0,
+            "parentId": "s02_q1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "spt2",
+    "ou_level": "2",
+    "department": "DPAL",
+    "health_area": "PALU",
+    "sections": [
+      {
+        "id": "s01",
+        "title": "Ressources humaines",
+        "maxScore": 20,
+        "type": "standard",
+        "questions": [
+          {
+            "id": "s01_q1",
+            "subject": "La Region dispose-t-elle :",
+            "level": 0,
+            "score": 0
+          },
+          {
+            "id": "s01_q2",
+            "subject": "Responsable Palu Régional (RPR)",
+            "level": 1,
+            "score": 0,
+            "parentId": "s01_q1"
+          },
+          {
+            "id": "s01_q3",
+            "subject": "Orienté sur le denier PSN Palu",
+            "level": 1,
+            "score": 0,
+            "parentId": "s01_q1"
+          },
+          {
+            "id": "s01_q4",
+            "subject": "Est-ce qu'il a accèes au DHIS2?",
+            "level": 1,
+            "score": 0,
+            "parentId": "s01_q1"
+          },
+          {
+            "id": "s01_q5",
+            "subject": "La Région dispose-t-elle d’une personne ou entité en charge de",
+            "level": 0,
+            "score": 0
+          },
+          {
+            "id": "s01_q6",
+            "subject": "Le contrôle de la qualité des données",
+            "level": 1,
+            "score": 0,
+            "parentId": "s01_q5"
+          },
+          {
+            "id": "s01_q7",
+            "subject": "L’analyse des données (graphiques et tableaux)",
+            "level": 1,
+            "score": 0,
+            "parentId": "s01_q5"
+          }
+        ]
+      },
+      {
+        "id": "section2",
+        "title": "Disponibilité des documents de référence",
+        "maxScore": 20,
+        "type": "standard",
+        "questions": [
+          {
+            "id": "s02_q1",
+            "subject": "La Région dispose-t-elle de:",
+            "level": 0,
+            "maxScore": 100
+          },
+          {
+            "id": "s02_q2",
+            "subject": "Les deux (2) plus récents Rapports de supervision",
+            "level": 1,
+            "score": 0,
+            "parentId": "s02_q1"
+          },
+          {
+            "id": "s02_q3",
+            "subject": "Plan Stratégique pour le Renforcement du Système d'Information Sanitaire 2023-2027 (PSRSIS)",
+            "level": 1,
+            "score": 0,
+            "parentId": "s02_q1"
+          },
+          {
+            "id": "s02_q4",
+            "subject": "Manuel des Normes et Procédures en matière de SIS",
+            "level": 1,
+            "score": 0,
+            "parentId": "s02_q1"
+          },
+          {
+            "id": "s02_q5",
+            "subject": "Guide d'utilisation de DHIS2",
+            "level": 1,
+            "score": 0,
+            "parentId": "s02_q1"
+          },
+          {
+            "id": "s02_q6",
+            "subject": "Guide de remplissage des RMA CSB /Communautaire",
+            "level": 1,
+            "score": 0,
+            "parentId": "s02_q1"
+          }
+        ]
+      }
+    ]
+  }
+]
