@@ -4,10 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { CurrAssmt } from '../../services/curr-assmt';
 import { Checklist } from '../../services/checklist';
 import { Section, StdQuestion, DQQuestion } from '../../models/spt.interface';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-spt-assessment',
-  imports: [CommonModule],
+  imports: [CommonModule, MatButtonModule],
   templateUrl: './spt-assessment.html',
   styleUrl: './spt-assessment.css',
 })
@@ -22,7 +23,7 @@ export class SptAssessment implements OnInit {
   constructor(
     private CurAssmtService: CurrAssmt,
     private ChecklistService: Checklist,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {

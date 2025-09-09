@@ -12,6 +12,7 @@ export interface Section {
   id: string;
   title: string;
   maxScore: number;
+  score?: number;
   type: 'standard' | 'dq';
   questions: StdQuestion[] | DQQuestion[];
 }

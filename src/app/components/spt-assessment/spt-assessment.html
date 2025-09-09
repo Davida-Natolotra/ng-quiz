@@ -1,23 +1,28 @@
 <h1>Assessment</h1>
-<h2>Organisation unit: {{ou}}</h2>
-<h2>Domaine de santé: {{health_area}}</h2>
-<h2>Département: {{department}}</h2>
+<h2>Organisation unit: {{ ou }}</h2>
+<h2>Domaine de santé: {{ health_area }}</h2>
+<h2>Département: {{ department }}</h2>
 
 @if (sections) { @for(section of sections; track section.id) {
 <div class="section">
-  <h3>{{section.title}}</h3>
-  <p>Score max: {{section.maxScore}}</p>
+  <h3>{{ section.title }}</h3>
+  <span>Score: {{ section.score }}/{{ section.maxScore }}</span>
 
   @if (isStandardSection(section)) {
   <p>Type: Standard</p>
   @for(question of getStandardQuestions(section); track question.id) {
   <div class="question">
-    <h4>{{question.subject}}</h4>
-    <p>Level: {{question.level}}</p>
-    <p>Score: {{question.score}}</p>
-    @if (question.parentId) {
-    <p>Parent ID: {{question.parentId}}</p>
-    }
+    <ul>
+      @if(question.level == 0){
+      <h4>{{ question.subject }}</h4>
+      <span> Score: {{ question.score }}</span>
+      } @else {
+      <li>{{ question.subject }}</li>
+      <button mat-button>Oui</button>
+      <button mat-button>Non</button>
+      <button mat-button>NA</button>
+      }
+    </ul>
   </div>
   } } @else if (isDQSection(section)) {
   <p>Type: Data Quality</p>
@@ -26,27 +31,27 @@
     <h4>Data Quality Assessment</h4>
     @for(subsection of question.subsections; track subsection.id) {
     <div class="subsection">
-      <h5>{{subsection.instruction}}</h5>
+      <h5>{{ subsection.instruction }}</h5>
       @for(evaluation of subsection.questions; track evaluation.evaluationTopic) {
       <div class="evaluation">
-        <h6>{{evaluation.evaluationTopic}}</h6>
+        <h6>{{ evaluation.evaluationTopic }}</h6>
         @for(entry of evaluation.monthlyEntries; track entry.id) {
         <div class="monthly-entry">
           <div class="entry-header">
-            <strong>{{entry.month}}</strong> - Answer: {{entry.answer}}
+            <strong>{{ entry.month }}</strong> - Answer: {{ entry.answer }}
           </div>
           @if (entry.elements && entry.elements.length > 0) {
           <div class="data-elements">
             <h6>Data Elements:</h6>
             @for(element of entry.elements; track element.id) {
-            <div class="element">{{element.name}}: {{element.data}}</div>
+            <div class="element">{{ element.name }}: {{ element.data }}</div>
             }
           </div>
           } @if (entry.evals && entry.evals.length > 0) {
           <div class="evaluations">
             <h6>Evaluations:</h6>
             @for(eval of entry.evals; track eval.id) {
-            <div class="eval">{{eval.name}}: {{eval.score}}</div>
+            <div class="eval">{{ eval.name }}: {{ eval.score }}</div>
             }
           </div>
           }
