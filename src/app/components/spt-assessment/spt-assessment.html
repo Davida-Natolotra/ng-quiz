@@ -1,1 +1,17 @@
-<p>spt-assessment works!</p>
+<h1>Assessment</h1>
+<h2>Organisation unit: {{ou}}</h2>
+<h2>Domaine de santé: {{health_area}}</h2>
+<h2>Département: {{department}}</h2>
+@for(section of this.sections;track section.id){
+<div class="section">
+  <h3>{{section.title}}</h3>
+  <p>Score max: {{section.maxScore}}</p>
+  @if(section.type == "standard"){
+  <p>Type: Standard</p>
+  @for(question of section.questions;track question.id){
+  <div class="question">
+    <h4>{{question.subject}}</h4>
+  </div>
+  }}
+</div>
+}

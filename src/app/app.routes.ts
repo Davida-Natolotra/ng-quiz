@@ -13,4 +13,14 @@ export const routes: Routes = [
     path: 'recap',
     loadComponent: () => import('./components/recap/recap').then((m) => m.Recap),
   },
+  {
+    path: 'assessment',
+    loadComponent: () =>
+      import('./components/spt-assessment/spt-assessment').then((m) => m.SptAssessment),
+  },
+  {
+    path: 'assessment/:id',
+    loadComponent: () =>
+      import('./components/spt-assessment/spt-assessment').then((m) => m.SptAssessment),
+  },
 ];

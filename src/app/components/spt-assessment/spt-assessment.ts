@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CurrAssmt } from '../../services/curr-assmt';
 import { Checklist } from '../../services/checklist';
-import { inject } from '@angular/core/primitives/di';
+import { Section } from '../../models/spt.interface';
 
 @Component({
   selector: 'app-spt-assessment',
@@ -10,15 +10,28 @@ import { inject } from '@angular/core/primitives/di';
   styleUrl: './spt-assessment.css',
 })
 export class SptAssessment implements OnInit {
-  CurAssmtService = inject(CurrAssmt);
-  ChecklistService = inject(Checklist);
+  ou_level: number = 2;
+  department: string = 'ME';
+  health_area: string = 'PALU';
+  ou = this.ou_level == 2 ? 'REGION' : 'DITRICT';
+  sections: Section[] | undefined;
 
-  constructor() {}
+  constructor(
+    private CurAssmtService: CurrAssmt,
+    private ChecklistService: Checklist,
+  ) {}
 
   ngOnInit(): void {
-    this.ChecklistService.getChecklists().subscribe((checklist) => {
-      this.CurAssmtService.assessmentList.set(checklist);
-      console.log(checklist);
+    this.ChecklistService.getChecklist({
+      ou_level: Number(this.ou_level),
+      department: this.department,
+      health_area: this.health_area,
+    }).subscribe((chckl) => {
+      if (chckl) {
+        this.CurAssmtService.currentAssessment.set(chckl);
+      }
+      console.log(chckl);
+      this.sections = this.CurAssmtService.currentAssessment().sections;
     });
   }
 }
