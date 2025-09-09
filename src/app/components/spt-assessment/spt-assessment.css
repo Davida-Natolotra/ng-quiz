@@ -1,0 +1,166 @@
+.section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.section h3 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 0.5rem;
+}
+
+.section p {
+  margin: 0.5rem 0;
+  color: #555;
+}
+
+.question {
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: white;
+  border-left: 4px solid #3498db;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.question h4 {
+  color: #2c3e50;
+  margin-bottom: 0.8rem;
+}
+
+.question p {
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+}
+
+.dq-question {
+  border-left-color: #e74c3c;
+}
+
+.subsection {
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
+}
+
+.subsection h5 {
+  color: #495057;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.evaluation {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 4px;
+  border: 1px solid #e9ecef;
+}
+
+.evaluation h6 {
+  color: #6c757d;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.monthly-entry {
+  margin: 0.8rem 0;
+  padding: 0.8rem;
+  background-color: #f1f3f4;
+  border-radius: 4px;
+  border-left: 3px solid #28a745;
+}
+
+.entry-header {
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.data-elements,
+.evaluations {
+  margin-top: 0.8rem;
+}
+
+.data-elements h6,
+.evaluations h6 {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.element,
+.eval {
+  padding: 0.3rem 0.6rem;
+  margin: 0.3rem 0;
+  background-color: white;
+  border-radius: 3px;
+  font-size: 0.85rem;
+  border: 1px solid #e9ecef;
+}
+
+.element {
+  border-left: 3px solid #17a2b8;
+}
+
+.eval {
+  border-left: 3px solid #ffc107;
+}
+
+/* Header styling */
+h1 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+}
+
+h2 {
+  color: #34495e;
+  margin: 1rem 0;
+  font-size: 1.3rem;
+}
+
+/* Loading state */
+p:last-child {
+  text-align: center;
+  font-style: italic;
+  color: #6c757d;
+  margin-top: 2rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .section {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .question {
+    padding: 0.8rem;
+  }
+
+  .subsection {
+    padding: 0.8rem;
+  }
+
+  .evaluation {
+    padding: 0.8rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+  }
+}
