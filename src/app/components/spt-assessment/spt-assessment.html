@@ -3,24 +3,55 @@
 <h2>Domaine de santé: {{ health_area }}</h2>
 <h2>Département: {{ department }}</h2>
 
-@if (sections) { @for(section of sections; track section.id) {
+@if (sections) { @for(section of this.CurAssmtService.currentAssessment().sections; track
+section.id) {
 <div class="section">
   <h3>{{ section.title }}</h3>
-  <span>Score: {{ section.score }}/{{ section.maxScore }}</span>
+  <div class="section-score">
+    <span class="score-display">Score: {{ section.score }}/{{ section.maxScore }}</span>
+    <span class="score-info">({{ section.maxScore }} questions eligible for scoring)</span>
+  </div>
 
   @if (isStandardSection(section)) {
   <p>Type: Standard</p>
   @for(question of getStandardQuestions(section); track question.id) {
   <div class="question">
+    <span>Score: {{ question.score }}</span>
     <ul>
       @if(question.level == 0){
       <h4>{{ question.subject }}</h4>
-      <span> Score: {{ question.score }}</span>
+
       } @else {
       <li>{{ question.subject }}</li>
-      <button mat-button>Oui</button>
-      <button mat-button>Non</button>
-      <button mat-button>NA</button>
+      <div class="question-info">
+        <span>Score: {{ question.score }}</span>
+        @if(question.response) {
+        <span class="response-status" [class]="'response-' + question.response.toLowerCase()">
+          Response: {{ question.response }}
+        </span>
+        } @else {
+        <span class="no-response">No response yet</span>
+        }
+      </div>
+      <div class="radio-group">
+        <mat-radio-group
+          [name]="'question_' + section.id + '_' + question.id"
+          [value]="getQuestionResponse(section.id, question.id)"
+          (change)="
+            setQScore({
+              isStandardSection: isStandardSection(section),
+              sectionId: section.id,
+              level: question.level,
+              questionId: question.id,
+              response: $event.value
+            })
+          "
+        >
+          <mat-radio-button value="Oui">Oui</mat-radio-button>
+          <mat-radio-button value="Non">Non</mat-radio-button>
+          <mat-radio-button value="NA">NA</mat-radio-button>
+        </mat-radio-group>
+      </div>
       }
     </ul>
   </div>

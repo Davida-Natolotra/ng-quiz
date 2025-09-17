@@ -25,6 +25,7 @@ export interface StdQuestion {
   level: number;
   parentId?: string;
   score: number;
+  response?: 'Oui' | 'Non' | 'NA';
 }
 
 // SectionType
