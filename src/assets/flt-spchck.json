@@ -90,5 +90,58 @@
         ]
       }
     ]
+  },
+  {
+    "id": "spt2",
+    "ou_level": "3",
+    "department": "ME",
+    "health_area": "PALU",
+    "sections": [
+      {
+        "id": "s02",
+        "title": "Revue de l’exactitude des données rapportées par les Formations Sanitaires",
+        "maxScore": 15,
+        "score": 0,
+        "type": "dq",
+        "contents": [
+          {
+            "id": "s02_q1",
+            "subsections": [
+              {
+                "id": "s02_q1_ss1",
+                "instruction": "Sélectionner au hasard des indicateurs à partir du formulaire",
+                "questions": [
+                  {
+                    "evaluationTopic": "Nombre cas de fièvre toutes causes",
+                    "monthlyEntries": [
+                      {
+                        "id": "janv",
+                        "month": "Janvier",
+                        "answer": "full",
+                        "elements": [
+                          {
+                            "id": "nbe",
+                            "name": "Nombre cas de fièvre toutes causes",
+                            "data": 15
+                          }
+                        ],
+                        "evals": [
+                          {
+                            "id": "eval1",
+                            "name": "Exactitude",
+                            "score": 5,
+                            "observation": "Données exactes"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
 ]
