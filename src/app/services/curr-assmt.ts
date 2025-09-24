@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { ChecklistBase } from '../models/spt.interface';
+import { ChecklistBase } from '../models/chk-spt.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -16,13 +16,14 @@ export class CurrAssmt {
         title: '',
         maxScore: 0,
         type: 'standard',
-        questions: [
+        contents: [
           {
             id: '',
             subject: '',
             level: 0,
-            parentId: '',
+            type: 'question',
             score: 0,
+            observation: '',
           },
         ],
       },

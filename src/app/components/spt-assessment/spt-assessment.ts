@@ -2,19 +2,37 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { CurrAssmt } from '../../services/curr-assmt';
-import { Checklist } from '../../services/checklist';
-import { Section, StdQuestion, DQQuestion } from '../../models/spt.interface';
+import { ExtChecklist } from '../../services/ext/ext-checklist';
+import { Section, StdQuestion, DQQuestion, Label } from '../../models/chk-spt.interface';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-spt-assessment',
-  imports: [CommonModule, MatButtonModule, MatRadioModule],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatRadioModule,
+    MatExpansionModule,
+    MatCardModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatIconModule,
+    FormsModule,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: './spt-assessment.html',
   styleUrl: './spt-assessment.css',
 })
 export class SptAssessment implements OnInit {
-  ou_level: number = 2;
+  ou_level: number = 3;
   department: string = 'ME';
   health_area: string = 'PALU';
   ou = this.ou_level == 2 ? 'REGION' : 'DISTRICT';
@@ -23,8 +41,8 @@ export class SptAssessment implements OnInit {
 
   constructor(
     public CurAssmtService: CurrAssmt,
-    private ChecklistService: Checklist,
-    private route: ActivatedRoute,
+    private ChecklistService: ExtChecklist,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -38,9 +56,10 @@ export class SptAssessment implements OnInit {
     }).subscribe({
       next: (chckl) => {
         if (chckl) {
-          const initializedChecklist = this.initializeSectionMaxScores(chckl);
-          this.CurAssmtService.currentAssessment.set(initializedChecklist);
-          this.sections = initializedChecklist.sections;
+          // const initializedChecklist = this.initializeSectionMaxScores(chckl);
+          // this.CurAssmtService.currentAssessment.set(initializedChecklist);
+          // this.sections = initializedChecklist.sections;
+          console.log('Checklist loaded and initialized:', chckl);
         }
         console.log('Loaded checklist:', chckl);
       },
@@ -50,21 +69,29 @@ export class SptAssessment implements OnInit {
     });
   }
 
-  // Type guard methods for template
-  isStandardSection(section: Section): section is Section & { questions: StdQuestion[] } {
+  // Updated type guard methods
+  isStandardSection(section: Section): section is Section & { contents: StdQuestion[] } {
     return section.type === 'standard';
   }
 
-  isDQSection(section: Section): section is Section & { questions: DQQuestion[] } {
+  isDQSection(section: Section): section is Section & { contents: DQQuestion[] } {
     return section.type === 'dq';
   }
 
+  isLabelSection(section: Section): section is Section & { contents: Label[] } {
+    return section.type === 'label';
+  }
+
   getStandardQuestions(section: Section): StdQuestion[] {
-    return this.isStandardSection(section) ? section.questions : [];
+    return this.isStandardSection(section) ? section.contents : [];
   }
 
   getDQQuestions(section: Section): DQQuestion[] {
-    return this.isDQSection(section) ? section.questions : [];
+    return this.isDQSection(section) ? section.contents : [];
+  }
+
+  getLabelContents(section: Section): Label[] {
+    return this.isLabelSection(section) ? section.contents : [];
   }
 
   setQScore(params: {
@@ -97,7 +124,7 @@ export class SptAssessment implements OnInit {
         ...currentAssessment,
         sections: currentAssessment.sections.map((section) => {
           if (section.id === sectionId && this.isStandardSection(section)) {
-            const updatedQuestions = section.questions.map((question) => {
+            const updatedContents = section.contents.map((question) => {
               if (question.id === questionId) {
                 return {
                   ...question,
@@ -109,21 +136,19 @@ export class SptAssessment implements OnInit {
             }) as StdQuestion[];
 
             // Calculate section score (only count Oui responses)
-            const sectionScore = updatedQuestions.reduce((sum, q) => {
+            const sectionScore = updatedContents.reduce((sum, q) => {
               if (q.response === 'Oui') {
                 return sum + 1;
               }
               return sum;
             }, 0);
 
-            // Calculate maxScore (exclude NA responses and level 0 questions from possible maximum)
-            const maxScore = updatedQuestions.filter(
-              (q) => q.level !== 0 && q.response !== 'NA',
-            ).length;
+            // Calculate maxScore (exclude NA responses)
+            const maxScore = updatedContents.filter((q) => q.response !== 'NA').length;
 
             return {
               ...section,
-              questions: updatedQuestions,
+              contents: updatedContents,
               score: sectionScore,
               maxScore: maxScore,
             };
@@ -145,9 +170,66 @@ export class SptAssessment implements OnInit {
         'Score:',
         score,
         'Section MaxScore:',
-        this.CurAssmtService.currentAssessment().sections.find((s) => s.id === sectionId)?.maxScore,
+        this.CurAssmtService.currentAssessment().sections.find((s) => s.id === sectionId)?.maxScore
       );
     }
+  }
+
+  // Add these methods to the SptAssessment class
+  setObservation(params: { sectionId: string; questionId: string; observation: string }) {
+    const currentAssessment = this.CurAssmtService.currentAssessment();
+    if (!currentAssessment) return;
+
+    const updatedAssessment = {
+      ...currentAssessment,
+      sections: currentAssessment.sections.map((section) => {
+        if (section.id === params.sectionId && this.isStandardSection(section)) {
+          return {
+            ...section,
+            contents: section.contents.map((question) => {
+              if (question.id === params.questionId) {
+                return {
+                  ...question,
+                  observation: params.observation,
+                } as StdQuestion;
+              }
+              return question;
+            }),
+          };
+        }
+        return section;
+      }),
+    };
+
+    this.CurAssmtService.currentAssessment.set(updatedAssessment);
+  }
+
+  saveAssessment() {
+    const current = this.CurAssmtService.currentAssessment();
+    if (!current) return;
+
+    this.CurAssmtService.assessmentList.update((list) => {
+      const index = list.findIndex((a) => a.id === current.id);
+      if (index !== -1) {
+        const newList = [...list];
+        newList[index] = current;
+        return newList;
+      }
+      return [...list, current];
+    });
+
+    console.log('Assessment saved successfully');
+  }
+
+  getObservation(sectionId: string, questionId: string): string {
+    const currentAssessment = this.CurAssmtService.currentAssessment();
+    if (!currentAssessment) return '';
+
+    const section = currentAssessment.sections.find((s) => s.id === sectionId);
+    if (!section || !this.isStandardSection(section)) return '';
+
+    const question = section.contents.find((q) => q.id === questionId) as StdQuestion;
+    return question?.observation || '';
   }
 
   // Helper method to get the current response for a question
@@ -158,7 +240,7 @@ export class SptAssessment implements OnInit {
     const section = currentAssessment.sections.find((s) => s.id === sectionId);
     if (!section || !this.isStandardSection(section)) return '';
 
-    const question = section.questions.find((q) => q.id === questionId) as StdQuestion;
+    const question = section.contents.find((q) => q.id === questionId) as StdQuestion;
     return question?.response || '';
   }
 
@@ -171,8 +253,8 @@ export class SptAssessment implements OnInit {
       ...currentAssessment,
       sections: currentAssessment.sections.map((section) => {
         if (this.isStandardSection(section)) {
-          const eligibleQuestions = section.questions.filter((q) => {
-            return q.level !== 0 && (!q.response || q.response !== 'NA');
+          const eligibleQuestions = section.contents.filter((q) => {
+            return !q.response || q.response !== 'NA';
           });
           return {
             ...section,
@@ -192,10 +274,8 @@ export class SptAssessment implements OnInit {
       ...checklist,
       sections: checklist.sections.map((section: any) => {
         if (section.type === 'standard') {
-          // For standard sections, maxScore is the number of questions that are not level 0 (headers)
-          // and are not answered as NA
-          const eligibleQuestions = section.questions.filter((q: StdQuestion) => {
-            return q.level !== 0 && (!q.response || q.response !== 'NA');
+          const eligibleQuestions = section.contents.filter((q: StdQuestion) => {
+            return !q.response || q.response !== 'NA';
           });
           return {
             ...section,

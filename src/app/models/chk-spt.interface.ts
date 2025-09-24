@@ -14,8 +14,7 @@ export interface Section {
   maxScore: number;
   score?: number;
   type: 'standard' | 'dq' | 'label';
-  label?: Label[];
-  questions?: StdQuestion[] | DQQuestion[];
+  contents: StdQuestion[] | DQQuestion[] | Label[] | any[];
 }
 
 // SectionType
@@ -23,8 +22,6 @@ export interface Section {
 export interface StdQuestion {
   id: string;
   subject: string;
-  level: number;
-  parentId?: string;
   score: number;
   response?: 'Oui' | 'Non' | 'NA';
   observation: string;

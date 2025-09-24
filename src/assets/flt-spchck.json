@@ -1,0 +1,94 @@
+[
+  {
+    "id": "spt1",
+    "ou_level": "3",
+    "department": "DPAL",
+    "health_area": "PALU",
+    "sections": [
+      {
+        "id": "s01",
+        "title": "Ressources humaines",
+        "maxScore": 20,
+        "type": "standard",
+        "contents": [
+          {
+            "id": "s01_q1",
+            "type": "label",
+            "name": "Le bureau du district dispose-t-il :",
+            "level": 0
+          },
+          {
+            "id": "s01_q2",
+            "type": "label",
+            "name": "1. D'un responsable palu de district (RPD)",
+            "level": 1
+          },
+          {
+            "id": "s01_q3",
+            "type": "question",
+            "subject": "Formé en PEC Paludisme",
+            "score": 0,
+
+            "observation": ""
+          },
+          {
+            "id": "s01_q4",
+            "type": "question",
+            "subject": "Est-ce qu'il a accèes au DHIS2?",
+            "score": 0,
+            "parentId": "s01_q1",
+            "observation": ""
+          },
+          {
+            "id": "s01_q5",
+            "type": "question",
+            "subject": "Est-ce qu'il fait des analyses des données",
+            "score": 0,
+            "observation": ""
+          },
+          {
+            "id": "s01_q6",
+            "type": "question",
+            "subject": "Est-ce qu'il fait des supervisions régulières des formations sanitaires du district?",
+            "score": 0,
+            "observation": ""
+          },
+          {
+            "id": "s01_q7",
+            "type": "question",
+            "subject": "Est-ce qu'il a à sa possession tous les documents cadres (PSN, PSE, Protocol de PEC, PSNSC)?",
+            "score": 0,
+            "observation": ""
+          },
+          {
+            "id": "s01_q8",
+            "type": "label",
+            "name": "Est-il doté de matériels :",
+            "level": 2
+          },
+          {
+            "id": "s01_q9",
+            "type": "question",
+            "subject": "Ordinateurs",
+            "score": 0,
+            "observation": ""
+          },
+          {
+            "id": "s01_q10",
+            "type": "question",
+            "subject": "Tablette",
+            "score": 0,
+            "observation": ""
+          },
+          {
+            "id": "s01_q11",
+            "type": "question",
+            "subject": "Connexion internet",
+            "score": 0,
+            "observation": ""
+          }
+        ]
+      }
+    ]
+  }
+]
