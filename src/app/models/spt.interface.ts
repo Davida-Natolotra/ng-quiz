@@ -13,8 +13,7 @@ export interface Section {
   title: string;
   maxScore: number;
   score?: number;
-  type: 'standard' | 'dq' | 'label';
-  label?: Label[];
+  type: 'standard' | 'dq';
   questions?: StdQuestion[] | DQQuestion[];
 }
 

@@ -13,62 +13,59 @@ export interface Section {
   title: string;
   maxScore: number;
   score?: number;
-  type: 'standard' | 'dq' | 'label';
-  contents: StdQuestion[] | DQQuestion[] | Label[] | any[];
+  type: 'standard' | 'dq';
+  contents: (StdQuestion | DQQuestion | Label)[];
 }
 
-// SectionType
-// Standard
-export interface StdQuestion {
+// Base content interface
+interface BaseContent {
   id: string;
+  type: string;
+}
+
+// Standard Question
+export interface StdQuestion extends BaseContent {
+  type: 'question';
   subject: string;
   score: number;
   response?: 'Oui' | 'Non' | 'NA';
   observation: string;
+  parentId?: string;
 }
 
 // Label type
-
-export interface Label {
-  id: string;
+export interface Label extends BaseContent {
+  type: 'label';
   name: string;
   level: number;
 }
 
-// SectionType
 // Data quality question
-export interface DQQuestion {
-  id: string;
-  subsections: Subsection[];
+export interface DQQuestion extends BaseContent {
+  ind_mois: IndMois[];
+  lqas: LM[];
+  score?: number;
 }
 
-export interface Subsection {
+export interface LM {
   id: string;
-  instruction: string;
-  questions: DataQualityEvaluation[];
+  mois: string;
+  total: number;
 }
 
-export interface DataQualityEvaluation {
-  evaluationTopic: string;
-  monthlyEntries: MonthlyEntry[];
-}
-export interface MonthlyEntry {
+export interface IndMois {
   id: string;
-  month: string;
-  answer: string;
-  elements: DataElement[];
-  evals: Evaluation[];
+  indicator_name: string;
+  dataMonths: DataMonth[];
 }
 
-export interface DataElement {
+export interface DataMonth {
   id: string;
-  name: string;
-  data: number;
-}
-
-export interface Evaluation {
-  id: string;
-  name: string;
-  score: number;
-  observation: string;
+  mois: string;
+  base_name: string;
+  base_data: number;
+  recount_source: string;
+  recount_data: number;
+  rate: number;
+  concordance: boolean;
 }

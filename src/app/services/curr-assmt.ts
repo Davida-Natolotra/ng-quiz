@@ -10,24 +10,7 @@ export class CurrAssmt {
     ou_level: 0,
     department: '',
     health_area: '',
-    sections: [
-      {
-        id: '',
-        title: '',
-        maxScore: 0,
-        type: 'standard',
-        contents: [
-          {
-            id: '',
-            subject: '',
-            level: 0,
-            type: 'question',
-            score: 0,
-            observation: '',
-          },
-        ],
-      },
-    ],
+    sections: [],
   });
 
   assessmentList = signal<ChecklistBase[]>([]);

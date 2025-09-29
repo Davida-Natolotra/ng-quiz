@@ -10,7 +10,7 @@ export class ExtChecklist {
   constructor(private http: HttpClient) {}
 
   getChecklists(): Observable<ChecklistBase[]> {
-    return this.http.get<ChecklistBase[]>('/assets/spt-chk.json');
+    return this.http.get<ChecklistBase[]>('/assets/flt-spchck.json');
   }
 
   getChecklist({

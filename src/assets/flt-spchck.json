@@ -88,6 +88,109 @@
             "observation": ""
           }
         ]
+      },
+      {
+        "id": "s02",
+        "title": "Revue de l’exactitude des données rapportées par les Formations Sanitaires",
+        "maxScore": 0,
+        "type": "dq",
+        "contents": [
+          {
+            "id": "s01_dq1",
+            "ind_mois": [
+              {
+                "id": "s01_ind_1",
+                "indicator_name": "Nombre de cas de paludisme confirmés par TDR",
+                "dataMonths": [
+                  {
+                    "id": "s01_ind_1_jan",
+                    "mois": "Janvier",
+                    "base_name": "DHIS2",
+                    "base_data": 45,
+                    "recount_source": "Registre de consultation",
+                    "recount_data": 42,
+                    "rate": 93.3,
+                    "concordance": true
+                  },
+                  {
+                    "id": "s01_ind_1_fev",
+                    "mois": "Février",
+                    "base_name": "DHIS2",
+                    "base_data": 38,
+                    "recount_source": "Registre de consultation",
+                    "recount_data": 45,
+                    "rate": 84.4,
+                    "concordance": false
+                  },
+                  {
+                    "id": "s01_ind_1_mar",
+                    "mois": "Mars",
+                    "base_name": "DHIS2",
+                    "base_data": 52,
+                    "recount_source": "Registre de consultation",
+                    "recount_data": 48,
+                    "rate": 92.3,
+                    "concordance": true
+                  }
+                ]
+              },
+              {
+                "id": "s01_ind_2",
+                "indicator_name": "Nombre de cas de paludisme grave traités",
+                "dataMonths": [
+                  {
+                    "id": "s01_ind_2_jan",
+                    "mois": "Janvier",
+                    "base_name": "DHIS2",
+                    "base_data": 8,
+                    "recount_source": "Registre d'hospitalisation",
+                    "recount_data": 7,
+                    "rate": 87.5,
+                    "concordance": true
+                  },
+                  {
+                    "id": "s01_ind_2_fev",
+                    "mois": "Février",
+                    "base_name": "DHIS2",
+                    "base_data": 12,
+                    "recount_source": "Registre d'hospitalisation",
+                    "recount_data": 15,
+                    "rate": 80.0,
+                    "concordance": false
+                  },
+                  {
+                    "id": "s01_ind_2_mar",
+                    "mois": "Mars",
+                    "base_name": "DHIS2",
+                    "base_data": 6,
+                    "recount_source": "Registre d'hospitalisation",
+                    "recount_data": 6,
+                    "rate": 100.0,
+                    "concordance": true
+                  }
+                ]
+              }
+            ],
+            "lqas": [
+              {
+                "id": "s01_lqa_1",
+                "mois": "Janvier",
+                "total": 53
+              },
+              {
+                "id": "s01_lqa_2",
+                "mois": "Février",
+                "total": 60
+              },
+              {
+                "id": "s01_lqa_3",
+                "mois": "Mars",
+                "total": 54
+              }
+            ],
+            "score": 0
+          }
+        ]
       }
     ]
   },
@@ -105,38 +208,96 @@
         "type": "dq",
         "contents": [
           {
-            "id": "s02_q1",
-            "subsections": [
+            "id": "dq1",
+            "ind_mois": [
               {
-                "id": "s02_q1_ss1",
-                "instruction": "Sélectionner au hasard des indicateurs à partir du formulaire",
-                "questions": [
+                "id": "ind_1",
+                "indicator_name": "Indicator 1",
+                "dataMonths": [
                   {
-                    "evaluationTopic": "Nombre cas de fièvre toutes causes",
-                    "monthlyEntries": [
-                      {
-                        "id": "janv",
-                        "month": "Janvier",
-                        "answer": "full",
-                        "elements": [
-                          {
-                            "id": "nbe",
-                            "name": "Nombre cas de fièvre toutes causes",
-                            "data": 15
-                          }
-                        ],
-                        "evals": [
-                          {
-                            "id": "eval1",
-                            "name": "Exactitude",
-                            "score": 5,
-                            "observation": "Données exactes"
-                          }
-                        ]
-                      }
-                    ]
+                    "id": "ind_1_janv",
+                    "mois": "Janvier",
+                    "base_name": "DHIS2",
+                    "base_data": 15,
+                    "recount_source": "RMA",
+                    "recount_data": 15,
+                    "rate": 1,
+                    "concordance": true
+                  },
+                  {
+                    "id": "ind_1_fev",
+                    "mois": "Fevrier",
+                    "base_name": "DHIS2",
+                    "base_data": 12,
+                    "recount_source": "RMA",
+                    "recount_data": 20,
+                    "rate": 1,
+                    "concordance": false
+                  },
+                  {
+                    "id": "ind_1_mar",
+                    "mois": "Mars",
+                    "base_name": "DHIS2",
+                    "base_data": 9,
+                    "recount_source": "RMA",
+                    "recount_data": 30,
+                    "rate": 1,
+                    "concordance": false
                   }
                 ]
+              },
+              {
+                "id": "ind_2",
+                "indicator_name": "Indicator 2",
+                "dataMonths": [
+                  {
+                    "id": "ind_2_janv",
+                    "mois": "Janvier",
+                    "base_name": "DHIS2",
+                    "base_data": 15,
+                    "recount_source": "RMA",
+                    "recount_data": 15,
+                    "rate": 1,
+                    "concordance": true
+                  },
+                  {
+                    "id": "ind_2_fev",
+                    "mois": "Fevrier",
+                    "base_name": "DHIS2",
+                    "base_data": 12,
+                    "recount_source": "RMA",
+                    "recount_data": 20,
+                    "rate": 1,
+                    "concordance": false
+                  },
+                  {
+                    "id": "ind_2_mar",
+                    "mois": "Mars",
+                    "base_name": "DHIS2",
+                    "base_data": 9,
+                    "recount_source": "RMA",
+                    "recount_data": 30,
+                    "rate": 1,
+                    "concordance": false
+                  }
+                ]
+              }
+            ],
+            "lqas": [
+              {
+                "id": "lqa_1",
+                "mois": "Janvier",
+                "total": 15
+              },
+              {
+                "id": "lqa_2",
+                "mois": "Fevrier",
+                "total": 20
+              },
+              {
+                "id": "lqa_3",
+                "mois": "Mars",
+                "total": 30
               }
             ]
           }
