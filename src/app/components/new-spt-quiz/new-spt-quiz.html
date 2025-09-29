@@ -1,0 +1,212 @@
+@if (!isLoading) {
+<div class="quiz-container">
+  <form [formGroup]="quizForm">
+    <mat-accordion multi>
+      <!-- Sections -->
+      <div formArrayName="sections">
+        @for (section of sectionsArray.controls; track section.get('id')?.value; let sectionIndex =
+        $index) {
+        <div [formGroup]="section" class="section-container">
+          <mat-expansion-panel class="section-panel" expanded>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <div class="panel-title-content">
+                  <h2>{{ section.get('title')?.value }}</h2>
+                </div>
+              </mat-panel-title>
+              <mat-panel-description>
+                <div class="panel-score">
+                  <span class="score-text">{{ calculateSectionScore(section) }}%</span>
+                </div>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <!-- Contents -->
+            <div formArrayName="contents" class="contents-container">
+              @for (content of getContentsArray(section).controls; track content.get('id')?.value;
+              let contentIndex = $index) {
+              <div [formGroup]="content" class="content-item">
+                <!-- Standard Question -->
+                @if (isStandardQuestion(content)) {
+                <mat-card
+                  class="mat-elevation-1"
+                  [class]="'response-' + (content.get('response')?.value || 'none')"
+                >
+                  <mat-card-header>
+                    <mat-card-title style="font-size: small">{{
+                      content.get('subject')?.value
+                    }}</mat-card-title>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <mat-radio-group formControlName="response" class="response-group">
+                      <mat-radio-button value="Oui" color="primary">Oui</mat-radio-button>
+                      <mat-radio-button value="Non" color="warn">Non</mat-radio-button>
+                      <mat-radio-button value="NA">N/A</mat-radio-button>
+                    </mat-radio-group>
+
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Observations</mat-label>
+                      <textarea matInput formControlName="observation" rows="2"></textarea>
+                    </mat-form-field>
+                  </mat-card-content>
+                </mat-card>
+                }
+
+                <!-- Data Quality Question -->
+                @if (isDataQualityQuestion(content)) {
+                <div class="data-quality-accordion-wrapper">
+                  <!-- Indicators -->
+                  @if (content.get('ind_mois')) {
+                  <div formArrayName="ind_mois" class="ind-mois-container">
+                    <mat-accordion multi class="data-quality-accordion">
+                      @for (indicator of getIndMoisArray(content).controls; track
+                      indicator.get('id')?.value; let i = $index) {
+                      <div [formGroup]="indicator" style="margin: 0 -28px 16px -28px">
+                        <mat-expansion-panel class="indicator-panel">
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>
+                              <div class="indicator-title">
+                                <h4>
+                                  {{ indicator.get('indicator_name')?.value }}
+                                </h4>
+                              </div>
+                            </mat-panel-title>
+                          </mat-expansion-panel-header>
+
+                          @if (indicator.get('dataMonths')) {
+                          <div formArrayName="dataMonths" class="data-months-container">
+                            @for (month of getDataMonthsArray(indicator).controls; track
+                            month.get('id')?.value; let j = $index) {
+                            <div [formGroup]="month" class="month-data">
+                              <div class="month-header">
+                                <h5>{{ month.get('mois')?.value }}</h5>
+                                <mat-slide-toggle
+                                  formControlName="enabled"
+                                  color="primary"
+                                  class="edit-toggle"
+                                >
+                                  Édition
+                                </mat-slide-toggle>
+                              </div>
+
+                              <div class="data-row">
+                                <div class="data-column">
+                                  <mat-form-field appearance="outline" class="data-input">
+                                    <mat-label>Source de base</mat-label>
+                                    <input matInput type="text" formControlName="base_name" />
+                                  </mat-form-field>
+                                  <mat-form-field appearance="outline" class="data-input">
+                                    <mat-label>Donnée de base</mat-label>
+                                    <input
+                                      matInput
+                                      type="number"
+                                      formControlName="base_data"
+                                      min="0"
+                                      step="1"
+                                    />
+                                  </mat-form-field>
+                                </div>
+
+                                <div class="data-column">
+                                  <mat-form-field appearance="outline" class="data-input">
+                                    <mat-label>Source de recomptage</mat-label>
+                                    <input matInput type="text" formControlName="recount_source" />
+                                  </mat-form-field>
+                                  <mat-form-field appearance="outline" class="data-input">
+                                    <mat-label>Données recomptées</mat-label>
+                                    <input
+                                      matInput
+                                      type="number"
+                                      formControlName="recount_data"
+                                      min="0"
+                                      step="1"
+                                    />
+                                  </mat-form-field>
+                                </div>
+
+                                <div class="result">
+                                  <span class="mat-body-2">
+                                    Taux:
+                                    <strong>{{ month.get('rate')?.value || 0 }}%</strong>
+                                  </span>
+                                  <mat-chip
+                                    [color]="month.get('concordance')?.value ? 'primary' : 'warn'"
+                                    style="margin-left: 8px"
+                                    aria-label="Concordance status"
+                                  >
+                                    <mat-icon
+                                      style="margin-right: 4px; font-size: 18px"
+                                      aria-label="Status icon"
+                                    >
+                                      {{
+                                        month.get('concordance')?.value ? 'check_circle' : 'error'
+                                      }}
+                                    </mat-icon>
+                                    {{
+                                      month.get('concordance')?.value ? 'Concordant' : 'Discordant'
+                                    }}
+                                  </mat-chip>
+                                </div>
+                              </div>
+                            </div>
+                            }
+                          </div>
+                          }
+                        </mat-expansion-panel>
+                      </div>
+                      }
+                    </mat-accordion>
+                  </div>
+                  }
+
+                  <!-- LQAS Section -->
+                  @if (content.get('lqas')) {
+                  <div formArrayName="lqas" class="lqas-container">
+                    <h4>Résultat table LQAS</h4>
+                    <div class="lqas-grid">
+                      @for (lqas of getLqasArray(content).controls; track lqas.get('id')?.value; let
+                      k = $index) {
+                      <div [formGroup]="lqas" class="lqas-item">
+                        <div class="lqas-month">
+                          {{ lqas.get('mois')?.value }}
+                        </div>
+                        <div class="lqas-total">
+                          <span class="lqas-count">{{ lqas.get('total')?.value }}</span>
+                          <span class="lqas-label">discorde</span>
+                        </div>
+                      </div>
+                      }
+                    </div>
+                  </div>
+                  }
+                </div>
+                }
+
+                <!-- Label -->
+                @if (isLabelContent(content)) {
+                <div [class]="'label-level-' + content.get('level')?.value">
+                  {{ content.get('name')?.value }}
+                </div>
+                }
+              </div>
+              }
+            </div>
+
+            <mat-action-row>
+              <span class="score-display"> Score: {{ calculateSectionScore(section) }}% </span>
+            </mat-action-row>
+          </mat-expansion-panel>
+        </div>
+        }
+      </div>
+    </mat-accordion>
+
+    <button mat-flat-button type="submit" (click)="onSubmit()">Enregistrer</button>
+  </form>
+</div>
+} @else {
+<div class="loading-container">
+  <mat-spinner></mat-spinner>
+  <p>Loading assessment data...</p>
+</div>
+}
